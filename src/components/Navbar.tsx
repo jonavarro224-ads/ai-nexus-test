@@ -68,7 +68,10 @@ export default function Navbar() {
             >
               About
             </button>
-            <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105">
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105"
+            >
               Book Your Audit
             </button>
           </div>
@@ -115,7 +118,10 @@ export default function Navbar() {
               >
                 About
               </button>
-              <button className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300">
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
+              >
                 Book Your Audit
               </button>
             </div>

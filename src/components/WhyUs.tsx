@@ -42,7 +42,7 @@ export default function WhyUs() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-display font-bold text-white mb-6">
-            Why Choose AI Nexus
+            Why Choose AI Direct Support
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-4">
             Human-Centric AI That Delivers Results

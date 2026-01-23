@@ -39,7 +39,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-2">
             <Brain className="w-8 h-8 text-cyan-500" />
             <span className="text-2xl font-display font-bold text-white">
-              AI Nexus
+              AI Direct Support
             </span>
           </div>
 

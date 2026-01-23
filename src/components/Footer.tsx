@@ -16,7 +16,7 @@ export default function Footer() {
             <div className="flex items-center space-x-2 mb-6">
               <Brain className="w-8 h-8 text-cyan-500" />
               <span className="text-2xl font-display font-bold text-white">
-                AI Nexus
+                AI Direct Support
               </span>
             </div>
             <p className="text-gray-400 leading-relaxed mb-6 max-w-md">
@@ -118,7 +118,7 @@ export default function Footer() {
         <div className="pt-8 border-t border-slate-800">
           <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
             <p className="text-gray-400 text-sm">
-              © 2024 AI Nexus. All rights reserved.
+              © 2024 AI Direct Support. All rights reserved.
             </p>
             <p className="text-gray-400 text-sm">
               Built with intelligence and care

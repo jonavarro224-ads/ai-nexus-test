@@ -1,4 +1,5 @@
 import { Brain, Linkedin, Twitter, Github, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
@@ -92,24 +93,24 @@ export default function Footer() {
             <h3 className="text-white font-display font-bold mb-6">Legal</h3>
             <ul className="space-y-3">
               <li>
-                <a href="/legal#privacy" className="text-gray-400 hover:text-cyan-500 transition-colors">
+                <Link to="/legal#privacy" className="text-gray-400 hover:text-cyan-500 transition-colors">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/legal#tos" className="text-gray-400 hover:text-cyan-500 transition-colors">
+                <Link to="/legal#tos" className="text-gray-400 hover:text-cyan-500 transition-colors">
                   Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/legal#cookies" className="text-gray-400 hover:text-cyan-500 transition-colors">
+                <Link to="/legal#cookies" className="text-gray-400 hover:text-cyan-500 transition-colors">
                   Cookie Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/legal#compliance" className="text-gray-400 hover:text-cyan-500 transition-colors">
+                <Link to="/legal#compliance" className="text-gray-400 hover:text-cyan-500 transition-colors">
                   Compliance
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

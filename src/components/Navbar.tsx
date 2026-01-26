@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Brain, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,7 +23,26 @@ export default function Navbar() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
+      return;
     }
+
+    // If element not found, navigate to home with hash and attempt to scroll after navigation
+    if (location.pathname !== '/') {
+      navigate('/#' + id);
+      setIsMobileMenuOpen(false);
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 250);
+      return;
+    }
+
+    // On home but element still not present (maybe not mounted yet) — try shortly after
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+    }, 200);
   };
 
   return (
@@ -68,6 +90,12 @@ export default function Navbar() {
             >
               Why Us
             </button>
+            <Link
+              to="/legal"
+              className="text-gray-300 hover:text-cyan-500 transition-colors font-medium"
+            >
+              Legal
+            </Link>
             <button
               onClick={() => scrollToSection('contact')}
               className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105"
@@ -118,6 +146,13 @@ export default function Navbar() {
               >
                 Why Us
               </button>
+              <Link
+                to="/legal"
+                className="block w-full text-left text-gray-300 hover:text-cyan-500 transition-colors font-medium py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Legal
+              </Link>
               <button
                 onClick={() => scrollToSection('contact')}
                 className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"

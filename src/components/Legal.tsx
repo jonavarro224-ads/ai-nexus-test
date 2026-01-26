@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 export default function Legal() {
   const location = useLocation();
@@ -49,6 +49,14 @@ export default function Legal() {
             <p className="text-xl text-gray-400">
               Our commitment to transparency and compliance
             </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link to="/" className="text-cyan-400 hover:underline">Home</Link>
+              <Link to="/#services" className="text-gray-300 hover:text-cyan-400">Services</Link>
+              <Link to="/#methodology" className="text-gray-300 hover:text-cyan-400">Methodology</Link>
+              <Link to="/#training" className="text-gray-300 hover:text-cyan-400">Training</Link>
+              <Link to="/#about" className="text-gray-300 hover:text-cyan-400">Why Us</Link>
+              <Link to="/#contact" className="text-gray-300 hover:text-cyan-400">Contact</Link>
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">

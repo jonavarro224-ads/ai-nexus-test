@@ -1,123 +1,211 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function Hero() {
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const [chaosParticles, setChaosParticles] = useState<Array<{ id: number; x: number; y: number }>>([]);
+  const [orderParticles, setOrderParticles] = useState<Array<{ id: number; x: number; y: number }>>([]);
+
+  // Generate initial particles
+  useEffect(() => {
+    // Chaos particles - random positions
+    const chaos = Array.from({ length: 8 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+    }));
+    setChaosParticles(chaos);
+
+    // Order particles - vertical line
+    const order = Array.from({ length: 8 }, (_, i) => ({
+      id: i,
+      x: 50,
+      y: (i + 1) * (100 / 9),
+    }));
+    setOrderParticles(order);
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: 'easeOut' },
+    },
+  };
+
+  const chaosVariants = {
+    animate: {
+      x: [0, Math.random() * 40 - 20, Math.random() * 40 - 20, 0],
+      y: [0, Math.random() * 40 - 20, Math.random() * 40 - 20, 0],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
+  const orderVariants = {
+    animate: {
+      y: ['-100%', '100%'],
+      transition: {
+        duration: 8,
+        repeat: Infinity,
+        ease: 'linear',
+      },
+    },
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-500/10 via-transparent to-transparent"></div>
+    <section id="hero" className="relative min-h-screen bg-slate-900 pt-32 pb-12 overflow-hidden">
+      {/* Gradient background effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-blue-500/10 pointer-events-none" />
 
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/10 rounded-full filter blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl animate-pulse delay-700"></div>
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-8"
-        >
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[calc(100vh-180px)]">
+          {/* Left Column - Content (55% on desktop) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center space-x-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-sm font-medium"
+            className="lg:col-span-7 z-10"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            <Sparkles className="w-4 h-4" />
-            <span>Transforming Businesses Through Intelligence</span>
+            {/* Badge */}
+            <motion.div variants={itemVariants} className="mb-6">
+              <div className="inline-block px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-semibold">
+                System Architecture Audit
+              </div>
+            </motion.div>
+
+            {/* H1 - Heading */}
+            <motion.h1
+              variants={itemVariants}
+              className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight"
+            >
+              We Audit, Rebuild, and{' '}
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">
+                Automate
+              </span>{' '}
+              Your Business Architecture.
+            </motion.h1>
+
+            {/* Subtext */}
+            <motion.p
+              variants={itemVariants}
+              className="text-xl text-slate-400 mb-8 max-w-xl leading-relaxed"
+            >
+              Stop patching leaks. We build self-regulating AI systems that cut operational drag by 40%.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              {/* Primary CTA - Orange */}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-orange-500/50 flex items-center justify-center gap-2"
+              >
+                Get Structural Audit
+              </motion.button>
+
+              {/* Secondary CTA - Transparent with border */}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-transparent border-2 border-white/20 hover:border-cyan-500/50 text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:bg-white/5"
+              >
+                View System Architecture
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
+            </motion.div>
           </motion.div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-white leading-tight">
-            Future-Proof Your Business
-            <br />
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Structure with Intelligence
-            </span>
-          </h1>
-
-          <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            We audit, educate, and implement AI systems to streamline operations
-            and empower your workforce.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection('contact')}
-              className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/50 transition-all duration-300 flex items-center space-x-2"
-            >
-              <span>Start with a Structural Audit</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection('training')}
-              className="px-8 py-4 bg-slate-800/50 backdrop-blur-sm border border-slate-700 text-white font-semibold rounded-lg hover:bg-slate-800/80 hover:border-cyan-500/50 transition-all duration-300"
-            >
-              Explore Training Programs
-            </motion.button>
-          </div>
-
+          {/* Right Column - Visual (45% on desktop) */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="pt-16"
+            className="lg:col-span-5"
+            variants={itemVariants}
+            initial="hidden"
+            animate="visible"
           >
-            <div className="relative w-full max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden border border-slate-700/50 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5"></div>
+            <div className="glass-panel p-8 h-96 relative overflow-hidden">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-full h-full">
-                  <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-cyan-500 rounded-full animate-ping"></div>
-                  <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-blue-500 rounded-full animate-ping delay-300"></div>
-                  <div className="absolute bottom-1/4 left-1/2 w-4 h-4 bg-cyan-400 rounded-full animate-pulse"></div>
-                  <div className="absolute top-1/2 right-1/4 w-2 h-2 bg-blue-400 rounded-full animate-ping delay-700"></div>
+                <div className="grid grid-cols-2 gap-4 w-full h-full p-6">
+                  {/* Zone 1: Manual Input (Chaos) */}
+                  <div className="relative bg-slate-900/50 border border-red-500/20 rounded-lg overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-xs font-semibold text-red-400 text-center px-2">
+                        Manual Input
+                      </span>
+                    </div>
 
-                  <svg className="w-full h-full opacity-30" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-                    <g stroke="currentColor" className="text-cyan-500" strokeWidth="1" fill="none">
-                      <line x1="200" y1="100" x2="400" y2="225" strokeDasharray="5,5" />
-                      <line x1="400" y1="225" x2="600" y2="100" strokeDasharray="5,5" />
-                      <line x1="400" y1="225" x2="400" y2="350" strokeDasharray="5,5" />
-                      <line x1="200" y1="100" x2="300" y2="350" strokeDasharray="5,5" />
-                      <line x1="600" y1="100" x2="500" y2="350" strokeDasharray="5,5" />
-                    </g>
-                    <circle cx="200" cy="100" r="8" fill="#06B6D4" opacity="0.8" />
-                    <circle cx="400" cy="225" r="12" fill="#06B6D4" opacity="0.8" />
-                    <circle cx="600" cy="100" r="8" fill="#3B82F6" opacity="0.8" />
-                    <circle cx="300" cy="350" r="8" fill="#3B82F6" opacity="0.8" />
-                    <circle cx="500" cy="350" r="8" fill="#06B6D4" opacity="0.8" />
-                    <circle cx="400" cy="350" r="10" fill="#3B82F6" opacity="0.8" />
-                  </svg>
+                    {/* Chaotic red dots */}
+                    <div className="absolute inset-0">
+                      {chaosParticles.map((particle) => (
+                        <motion.div
+                          key={`chaos-${particle.id}`}
+                          className="absolute w-2 h-2 bg-red-500 rounded-full"
+                          style={{
+                            left: `${particle.x}%`,
+                            top: `${particle.y}%`,
+                          }}
+                          variants={chaosVariants}
+                          animate="animate"
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Zone 2: AI Process (Order) */}
+                  <div className="relative bg-slate-900/50 border border-blue-500/20 rounded-lg overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-xs font-semibold text-blue-400 text-center px-2">
+                        AI Process
+                      </span>
+                    </div>
+
+                    {/* Ordered blue dots moving vertically */}
+                    <div className="absolute inset-0">
+                      {orderParticles.map((particle) => (
+                        <motion.div
+                          key={`order-${particle.id}`}
+                          className="absolute w-2 h-2 bg-blue-500 rounded-full"
+                          style={{
+                            left: `${particle.x}%`,
+                          }}
+                          variants={orderVariants}
+                          animate="animate"
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
 
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-cyan-500/50 rounded-full flex items-start justify-center p-2"
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-1.5 h-1.5 bg-cyan-500 rounded-full"
-          ></motion.div>
-        </motion.div>
+              {/* Optional: Center divider line */}
+              <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
+            </div>
+
+            {/* Caption */}
+            <p className="text-center text-sm text-slate-400 mt-4">
+              Order from Chaos — AI transforms unstructured input into systematic processes.
+            </p>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

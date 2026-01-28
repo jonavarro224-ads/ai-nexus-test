@@ -61,7 +61,12 @@ export default function Navbar() {
           <Link
             to="/"
             className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              if (location.pathname === '/') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
           >
             <Brain className="w-8 h-8 text-cyan-500" />
             <span className="text-2xl font-display font-bold text-white">

@@ -1,129 +1,98 @@
 import { motion } from 'framer-motion';
-import { Search, Lightbulb, Users } from 'lucide-react';
+import { Package, TrendingUp, AlertCircle } from 'lucide-react';
 
 export default function Methodology() {
-  const steps = [
+  const principles = [
     {
-      number: '01',
-      icon: Search,
-      title: 'Discovery & Audit',
+      icon: Package,
+      title: 'Data as Inventory',
       description:
-        'Deep dive into data hygiene and workflows. We map your current processes and identify inefficiencies that AI can address.',
-      image: 'left',
+        'We treat data like physical inventory. If it\'s not moving, it\'s a liability. Every data point has a lifecycle—acquisition, processing, utility, and eventual archive or disposal.',
     },
     {
-      number: '02',
-      icon: Lightbulb,
-      title: 'Strategy & Prototyping',
+      icon: TrendingUp,
+      title: 'Supply Chain Logic',
       description:
-        'Selecting the right LLMs and automation tools. We build tailored prototypes that prove value before full deployment.',
-      image: 'right',
+        'Apply logistics to your information architecture. Optimize flow, eliminate bottlenecks, reduce waste. When data moves efficiently, revenue follows.',
     },
     {
-      number: '03',
-      icon: Users,
-      title: 'Education & Handoff',
+      icon: AlertCircle,
+      title: 'Velocity Over Volume',
       description:
-        'Training your internal stakeholders for autonomy. We ensure your team can maintain and evolve the AI systems independently.',
-      image: 'left',
+        'A smaller dataset moving fast beats a massive warehouse sitting still. We focus on actionable data, not data hoarding.',
     },
   ];
 
-  return (
-    <section id="methodology" className="py-24 bg-slate-900 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full filter blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/5 rounded-full filter blur-3xl"></div>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      },
+    },
+  };
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: 'easeOut' },
+    },
+  };
+
+  return (
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900 border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-display font-bold text-white mb-6">
-            The Methodology
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Operational Philosophy
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            A proven three-phase approach to sustainable AI transformation
+          <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            We treat data like physical inventory. If it's not moving, it's a liability.
+            <br />
+            We apply supply chain logistics to your information architecture.
           </p>
         </motion.div>
 
-        <div className="space-y-24">
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, x: step.image === 'left' ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className={`flex flex-col ${
-                step.image === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row'
-              } items-center gap-12`}
-            >
-              <div className="flex-1">
-                <div className="inline-flex items-center space-x-4 mb-6">
-                  <span className="text-6xl font-display font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                    {step.number}
-                  </span>
-                  <div className="p-3 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl">
-                    <step.icon className="w-6 h-6 text-white" />
-                  </div>
+        {/* Principles Grid */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+        >
+          {principles.map((principle, index) => {
+            const Icon = principle.icon;
+            return (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="glass-panel p-8 group hover:border-blue-500/50 transition-all duration-300"
+              >
+                <div className="mb-6 p-4 bg-blue-500/10 rounded-lg w-fit group-hover:bg-blue-500/20 transition-all">
+                  <Icon className="w-8 h-8 text-blue-400 group-hover:text-blue-300 transition-colors" />
                 </div>
-
-                <h3 className="text-3xl font-display font-bold text-white mb-4">
-                  {step.title}
+                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-blue-300 transition-colors">
+                  {principle.title}
                 </h3>
-
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  {step.description}
+                <p className="text-slate-400 group-hover:text-slate-300 transition-colors leading-relaxed">
+                  {principle.description}
                 </p>
-              </div>
-
-              <div className="flex-1">
-                <div className="relative group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-                  <div className="relative aspect-square bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700/50 p-8 flex items-center justify-center">
-                    <div className="relative w-full h-full">
-                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-xl"></div>
-                      <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-cyan-500 rounded-full animate-pulse"></div>
-                      <div className="absolute top-1/2 right-1/4 w-3 h-3 bg-blue-500 rounded-full animate-pulse delay-300"></div>
-                      <div className="absolute bottom-1/3 left-1/2 w-5 h-5 bg-cyan-400 rounded-full animate-pulse delay-700"></div>
-
-                      <svg className="w-full h-full opacity-40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <g stroke="currentColor" className="text-cyan-500" strokeWidth="2" fill="none">
-                          {index === 0 && (
-                            <>
-                              <circle cx="100" cy="100" r="60" strokeDasharray="5,5" />
-                              <circle cx="100" cy="100" r="40" strokeDasharray="5,5" />
-                              <circle cx="100" cy="100" r="20" strokeDasharray="5,5" />
-                            </>
-                          )}
-                          {index === 1 && (
-                            <>
-                              <path d="M50 100 L100 50 L150 100 L100 150 Z" strokeDasharray="5,5" />
-                              <circle cx="100" cy="100" r="30" strokeDasharray="5,5" />
-                            </>
-                          )}
-                          {index === 2 && (
-                            <>
-                              <circle cx="100" cy="80" r="15" />
-                              <circle cx="70" cy="130" r="15" />
-                              <circle cx="130" cy="130" r="15" />
-                              <line x1="100" y1="95" x2="70" y2="115" strokeDasharray="5,5" />
-                              <line x1="100" y1="95" x2="130" y2="115" strokeDasharray="5,5" />
-                            </>
-                          )}
-                        </g>
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

@@ -76,10 +76,10 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center space-x-8">
             <button
-              onClick={() => scrollToSection('services')}
+              onClick={() => scrollToSection('audit-types')}
               className="text-gray-300 hover:text-cyan-500 transition-colors font-medium"
             >
-              Services
+              Solutions
             </button>
             <button
               onClick={() => scrollToSection('methodology')}
@@ -88,28 +88,16 @@ export default function Navbar() {
               Methodology
             </button>
             <button
-              onClick={() => scrollToSection('training')}
+              onClick={() => scrollToSection('roi')}
               className="text-gray-300 hover:text-cyan-500 transition-colors font-medium"
             >
-              Training
+              ROI Engine
             </button>
-            <button
-              onClick={() => scrollToSection('about')}
-              className="text-gray-300 hover:text-cyan-500 transition-colors font-medium"
-            >
-              Why Us
-            </button>
-            <Link
-              to="/legal"
-              className="text-gray-300 hover:text-cyan-500 transition-colors font-medium"
-            >
-              Legal
-            </Link>
             <button
               onClick={() => scrollToSection('contact')}
               className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105"
             >
-              Contact
+              Book Strategy
             </button>
           </div>
 
@@ -132,10 +120,10 @@ export default function Navbar() {
           >
             <div className="px-4 py-6 space-y-4">
               <button
-                onClick={() => scrollToSection('services')}
+                onClick={() => scrollToSection('audit-types')}
                 className="block w-full text-left text-gray-300 hover:text-cyan-500 transition-colors font-medium py-2"
               >
-                Services
+                Solutions
               </button>
               <button
                 onClick={() => scrollToSection('methodology')}
@@ -144,29 +132,16 @@ export default function Navbar() {
                 Methodology
               </button>
               <button
-                onClick={() => scrollToSection('training')}
+                onClick={() => scrollToSection('roi')}
                 className="block w-full text-left text-gray-300 hover:text-cyan-500 transition-colors font-medium py-2"
               >
-                Training
+                ROI Engine
               </button>
-              <button
-                onClick={() => scrollToSection('about')}
-                className="block w-full text-left text-gray-300 hover:text-cyan-500 transition-colors font-medium py-2"
-              >
-                Why Us
-              </button>
-              <Link
-                to="/legal"
-                className="block w-full text-left text-gray-300 hover:text-cyan-500 transition-colors font-medium py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Legal
-              </Link>
               <button
                 onClick={() => scrollToSection('contact')}
                 className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
               >
-                Contact
+                Book Strategy
               </button>
             </div>
           </motion.div>

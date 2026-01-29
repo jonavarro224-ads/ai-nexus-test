@@ -1,211 +1,116 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { ArrowRight, ShieldCheck, Zap, Activity } from 'lucide-react';
 
 export default function Hero() {
-  const [chaosParticles, setChaosParticles] = useState<Array<{ id: number; x: number; y: number }>>([]);
-  const [orderParticles, setOrderParticles] = useState<Array<{ id: number; x: number; y: number }>>([]);
-
-  // Generate initial particles
-  useEffect(() => {
-    // Chaos particles - random positions
-    const chaos = Array.from({ length: 8 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-    }));
-    setChaosParticles(chaos);
-
-    // Order particles - vertical line
-    const order = Array.from({ length: 8 }, (_, i) => ({
-      id: i,
-      x: 50,
-      y: (i + 1) * (100 / 9),
-    }));
-    setOrderParticles(order);
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
-  };
-
-  const chaosVariants = {
-    animate: {
-      x: [0, Math.random() * 40 - 20, Math.random() * 40 - 20, 0],
-      y: [0, Math.random() * 40 - 20, Math.random() * 40 - 20, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      },
-    },
-  };
-
-  const orderVariants = {
-    animate: {
-      y: ['-100%', '100%'],
-      transition: {
-        duration: 8,
-        repeat: Infinity,
-        ease: 'linear',
-      },
-    },
-  };
-
   return (
-    <section id="hero" className="relative min-h-screen bg-slate-900 pt-32 pb-12 overflow-hidden">
-      {/* Gradient background effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-blue-500/10 pointer-events-none" />
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      {/* Glow Effect behind text */}
+      <div className="absolute top-20 left-0 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] -z-10" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[calc(100vh-180px)]">
-          {/* Left Column - Content (55% on desktop) */}
-          <motion.div
-            className="lg:col-span-7 z-10"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Badge */}
-            <motion.div variants={itemVariants} className="mb-6">
-              <div className="inline-block px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-semibold">
-                System Architecture Audit
-              </div>
-            </motion.div>
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+        
+        {/* Left Column: Copy */}
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-6">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            System Status: Operational
+          </div>
 
-            {/* H1 - Heading */}
-            <motion.h1
-              variants={itemVariants}
-              className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight"
-            >
-              We Audit, Rebuild, and{' '}
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">
-                Automate
-              </span>{' '}
-              Your Business Architecture.
-            </motion.h1>
+          <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight mb-6">
+            Your Website is Your <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+              Digital Supply Chain.
+            </span>
+          </h1>
 
-            {/* Subtext */}
-            <motion.p
-              variants={itemVariants}
-              className="text-xl text-slate-400 mb-8 max-w-xl leading-relaxed"
-            >
-              Stop patching leaks. We build self-regulating AI systems that cut operational drag by 40%.
-            </motion.p>
+          <p className="text-xl text-slate-400 mb-8 max-w-lg leading-relaxed">
+            We don't just build websites. We engineer high-velocity digital assets and provide 24/7 maintenance for businesses that cannot afford downtime.
+          </p>
 
-            {/* CTAs */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              {/* Primary CTA - Orange */}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-orange-500/50 flex items-center justify-center gap-2"
-              >
-                Get Structural Audit
-              </motion.button>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-lg font-semibold shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition-all group">
+              Get Developer Analysis
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button className="px-8 py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-lg font-medium backdrop-blur-sm transition-all">
+              View Maintenance Plans
+            </button>
+          </div>
+        </motion.div>
 
-              {/* Secondary CTA - Transparent with border */}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-transparent border-2 border-white/20 hover:border-cyan-500/50 text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:bg-white/5"
-              >
-                View System Architecture
-                <ArrowRight className="w-5 h-5" />
-              </motion.button>
-            </motion.div>
-          </motion.div>
+        {/* Right Column: The Visual (CSS Only - No Images needed) */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="relative"
+        >
+          <div className="glass-panel p-8 rounded-2xl relative z-10">
+            {/* Fake Code Header */}
+            <div className="flex items-center gap-2 mb-6 border-b border-white/5 pb-4">
+              <div className="w-3 h-3 rounded-full bg-red-500/50" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+              <div className="w-3 h-3 rounded-full bg-green-500/50" />
+              <div className="ml-auto text-xs font-mono text-slate-500">server_health.log</div>
+            </div>
 
-          {/* Right Column - Visual (45% on desktop) */}
-          <motion.div
-            className="lg:col-span-5"
-            variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <div className="glass-panel p-8 h-96 relative overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="grid grid-cols-2 gap-4 w-full h-full p-6">
-                  {/* Zone 1: Manual Input (Chaos) */}
-                  <div className="relative bg-slate-900/50 border border-red-500/20 rounded-lg overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-xs font-semibold text-red-400 text-center px-2">
-                        Manual Input
-                      </span>
-                    </div>
-
-                    {/* Chaotic red dots */}
-                    <div className="absolute inset-0">
-                      {chaosParticles.map((particle) => (
-                        <motion.div
-                          key={`chaos-${particle.id}`}
-                          className="absolute w-2 h-2 bg-red-500 rounded-full"
-                          style={{
-                            left: `${particle.x}%`,
-                            top: `${particle.y}%`,
-                          }}
-                          variants={chaosVariants}
-                          animate="animate"
-                        />
-                      ))}
-                    </div>
+            {/* Metrics */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-green-500/10 rounded-lg">
+                    <Zap className="w-5 h-5 text-green-400" />
                   </div>
-
-                  {/* Zone 2: AI Process (Order) */}
-                  <div className="relative bg-slate-900/50 border border-blue-500/20 rounded-lg overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-xs font-semibold text-blue-400 text-center px-2">
-                        AI Process
-                      </span>
-                    </div>
-
-                    {/* Ordered blue dots moving vertically */}
-                    <div className="absolute inset-0">
-                      {orderParticles.map((particle) => (
-                        <motion.div
-                          key={`order-${particle.id}`}
-                          className="absolute w-2 h-2 bg-blue-500 rounded-full"
-                          style={{
-                            left: `${particle.x}%`,
-                          }}
-                          variants={orderVariants}
-                          animate="animate"
-                        />
-                      ))}
-                    </div>
+                  <div>
+                    <div className="text-sm text-slate-400">Load Velocity</div>
+                    <div className="text-white font-mono">0.45s</div>
                   </div>
+                </div>
+                <div className="h-1 w-24 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-full w-[95%] bg-green-500" />
                 </div>
               </div>
 
-              {/* Optional: Center divider line */}
-              <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent pointer-events-none" />
-            </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-blue-500/10 rounded-lg">
+                    <ShieldCheck className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-slate-400">Security Shield</div>
+                    <div className="text-white font-mono">Active</div>
+                  </div>
+                </div>
+                <div className="text-xs text-green-400 font-mono">100% SECURE</div>
+              </div>
 
-            {/* Caption */}
-            <p className="text-center text-sm text-slate-400 mt-4">
-              Order from Chaos — AI transforms unstructured input into systematic processes.
-            </p>
-          </motion.div>
-        </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-purple-500/10 rounded-lg">
+                    <Activity className="w-5 h-5 text-purple-400" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-slate-400">Uptime</div>
+                    <div className="text-white font-mono">99.99%</div>
+                  </div>
+                </div>
+                <div className="text-xs text-slate-500 font-mono">LAST 30 DAYS</div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Decorative Elements */}
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-cyan-500/20 rounded-full blur-3xl -z-10" />
+        </motion.div>
+
       </div>
     </section>
   );

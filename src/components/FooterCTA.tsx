@@ -170,30 +170,57 @@ export default function FooterCTA() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3, duration: 0.8 }}
-        className="mt-20 pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-6"
+        className="mt-20 pt-12 border-t border-slate-800"
       >
-        <p className="text-sm text-slate-500">
-          © 2026 AI Direct Support. All rights reserved.
-        </p>
-        <div className="flex items-center gap-6 text-sm">
-          <a
-            href="/legal#privacy"
-            className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-          >
-            Privacy Policy
-          </a>
-          <a
-            href="/legal#terms"
-            className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-          >
-            Terms of Service
-          </a>
-          <a
-            href="/#contact"
-            className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
-          >
-            Contact
-          </a>
+        {/* Main Footer Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+          {/* Left: Logo & Tagline */}
+          <div>
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg" />
+              <span className="text-lg font-bold text-white">AI Nexus</span>
+            </div>
+            <p className="text-sm text-slate-400">
+              Operational Intelligence for the Supply Chain Age.
+            </p>
+          </div>
+
+          {/* Right: Links */}
+          <div className="flex flex-row items-center justify-center md:justify-end gap-6 flex-wrap">
+            <a href="/" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+              Home
+            </a>
+            <a href="/#audit-types" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+              Audit Types
+            </a>
+            <a href="/#roi" className="text-sm text-slate-400 hover:text-cyan-400 transition-colors">
+              ROI Engine
+            </a>
+          </div>
+        </div>
+
+        {/* Legal Row */}
+        <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-6 text-xs">
+          <p className="text-slate-500">
+            © 2026 AI Direct Support. All rights reserved.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4 text-slate-500">
+            <a href="/app/legal#terms" className="hover:text-slate-300 transition-colors">
+              Terms of Service
+            </a>
+            <span className="text-slate-600">|</span>
+            <a href="/app/legal#privacy" className="hover:text-slate-300 transition-colors">
+              Privacy Policy
+            </a>
+            <span className="text-slate-600">|</span>
+            <a href="/app/legal#cookies" className="hover:text-slate-300 transition-colors">
+              Cookie Policy
+            </a>
+            <span className="text-slate-600">|</span>
+            <a href="/app/legal#compliance" className="hover:text-slate-300 transition-colors">
+              Compliance Guidance
+            </a>
+          </div>
         </div>
       </motion.div>
     </section>
